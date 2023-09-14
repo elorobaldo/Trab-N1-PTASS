@@ -2,21 +2,22 @@ const User = require('../models/User');
 const secret = require('../config/auth.json');
 const jwt = require('jsonwebtoken');
 
-/*
-const createUser = async (req, res) => {
-    const {            } = req.body;
-    await User.create({
-       
 
+const createUser = async (req, res) => {
+    const { name, password, email } = req.body;
+    await User.create({
+       name: name,
+       password: password,
+       email: email
 
     }).then(() => {
-        res.json('         ');
-        console.log('           ');
+        res.json('Cadastro de usuário realizado com sucesso');
+        console.log('Cadastro de usuário realizado com sucesso');
     }).catch((erro) => {
         res.json('             ');
-        console.log(`  : ${erro}`);
+        console.log(`Ops, deu erro: ${erro}`);
     })
-}
+}/*
 const findUsers = async (req, res) => {
     const     = await User.findAll();
     try {
