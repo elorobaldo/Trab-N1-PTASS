@@ -14,14 +14,14 @@ const createUser = async (req, res) => {
         res.json('Cadastro de usuário realizado com sucesso');
         console.log('Cadastro de usuário realizado com sucesso');
     }).catch((erro) => {
-        res.json('             ');
+        res.json('');
         console.log(`Ops, deu erro: ${erro}`);
     })
-}/*
+}
 const findUsers = async (req, res) => {
-    const     = await User.findAll();
+    const users = await User.findAll();
     try {
-        res.json(    );
+        res.json(users);
     } catch (error) {
         res.status(404).json("Ocorreu um erro na busca!");
     };
@@ -32,15 +32,17 @@ const deleteUser = async (req, res) => {
     try {
         await User.destroy({
             where: {
-                
+                  name: name,
+                email: email,
+                password: password
             }
         }).then(() => {
-            res.json("         ");
+            res.json("Deletado");
         })
     } catch (error) {
-        res.status(404).json("      ");
+        res.status(404).json("Deu erroo");
     }
-}
+}/*
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
     const {       } = req.body;
@@ -55,34 +57,36 @@ const updateUser = async (req, res) => {
                 }
             }
         ).then(() => {
-            res.json("            ");
+            res.json("Deu certoo");
         })
     } catch (error) {
-        res.status(404).json("                !");
+        res.status(404).json("Erro!");
     }
 }
 const authenticatedUser = async (req, res) => {
-    const {       } = req.body;
+    const {name, email, password} = req.body;
     try {
         const isUserAuthenticated = await User.findOne({
             where: {
-                
+                name: name,
+                email: email,
+                password: password
             }
         })
         const token = jwt.sign({
-            name: 
-            email: 
+            name:name,
+            email: email
         },
             secret.secret, {
             expiresIn: 86400,
         })
         return res.json({
-            name: 
+            name: isUserAuthenticated.name,
             email: isUserAuthenticated.email,
             token: token
         });
     } catch (error) {
-        return res.json("");
+        return res.json("Usuario não encontrado!");
     }
 }
 
