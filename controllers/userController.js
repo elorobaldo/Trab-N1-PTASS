@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
         res.json('');
         console.log(`Ops, deu erro: ${erro}`);
     })
-}
+}/*
 const findUsers = async (req, res) => {
     const users = await User.findAll();
     try {
@@ -42,14 +42,16 @@ const deleteUser = async (req, res) => {
     } catch (error) {
         res.status(404).json("Deu erroo");
     }
-}/*
+}
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
-    const {       } = req.body;
+    const {     name, email, password      } = req.body;
     try {
         await User.update(
             {
-               
+    name: name,
+       password: password,
+       email: email
             },
             {
                 where: {
@@ -89,7 +91,7 @@ const authenticatedUser = async (req, res) => {
         return res.json("Usuario não encontrado!");
     }
 }
-
-
-module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedUser };
+, findUsers, deleteUser, updateUser, authenticatedUser
 */
+
+module.exports = { createUser };
