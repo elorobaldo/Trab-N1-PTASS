@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
         res.json('');
         console.log(`Ops, deu erro: ${erro}`);
     })
-}/*
+}
 const findUsers = async (req, res) => {
     const users = await User.findAll();
     try {
@@ -91,7 +91,7 @@ const authenticatedUser = async (req, res) => {
         return res.json("Usuario não encontrado!");
     }
 }
-, findUsers, deleteUser, updateUser, authenticatedUser
-*/
 
-module.exports = { createUser };
+
+
+module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedUser };
