@@ -14,7 +14,7 @@ const createUser = async (req, res) => {
         res.json('Cadastro de usuário realizado com sucesso');
         console.log('Cadastro de usuário realizado com sucesso');
     }).catch((erro) => {
-        res.json('');
+        res.json('Cadastro já realizado');
         console.log(`Ops, deu erro: ${erro}`);
     })
 }
