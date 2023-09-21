@@ -3,6 +3,7 @@ const routes = express.Router();
 
 const userController = require('../controllers/userController');
 
+//EndPoint: rota - extremidade de conexão dessa API 
 
 routes.get('/users', userController.findUsers);
 routes.delete('/user/:id', userController.deleteUser);
