@@ -32,9 +32,7 @@ const deleteUser = async (req, res) => {
     try {
         await User.destroy({
             where: {
-                  name: name,
-                email: email,
-                password: password
+                 id:id
             }
         }).then(() => {
             res.json("Deletado");
