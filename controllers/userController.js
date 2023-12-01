@@ -79,7 +79,15 @@ const authenticatedUser = async (req, res) => {
         },
             secret.secret, {
             expiresIn: 86400,
+        },
+
+        res.cookie('token', token, {httpOnly: true}).json({
+            name: isUserAuthenticated.name,
+            email: isUserAuthenticated.email,
+            token:token
         })
+        
+        );
         return res.json({
             name: isUserAuthenticated.name,
             email: isUserAuthenticated.email,
@@ -93,3 +101,9 @@ const authenticatedUser = async (req, res) => {
 
 
 module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedUser };
+
+//npm i express 
+//npm i nodemon
+//npm i bcryptjs
+//npm init
+//npm start
