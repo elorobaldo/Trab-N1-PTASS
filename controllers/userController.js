@@ -1,13 +1,16 @@
 const User = require('../models/User');
 const secret = require('../config/auth.json');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 
 const createUser = async (req, res) => {
     const { name, password, email } = req.body;
+    const passwordCrypto = await bcrypt.hash(password, 10);
     await User.create({
        name: name,
-       password: password,
+       password: passwordCrypto,
        email: email
 
     }).then(() => {
@@ -44,11 +47,12 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const id = parseInt(req.params.id);
     const {     name, email, password      } = req.body;
+    const passwordCrypto = await bcrypt.hash(password, 10);
     try {
         await User.update(
             {
-    name: name,
-       password: password,
+       name: name,
+       password: passwordCrypto,
        email: email
             },
             {
@@ -64,35 +68,33 @@ const updateUser = async (req, res) => {
     }
 }
 const authenticatedUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    const {name, password} = req.body;
     try {
         const isUserAuthenticated = await User.findOne({
             where: {
-                name: name,
-                email: email,
-                password: password
+                email: email
             }
-        })
+        });
+        if(!isUserAuthenticated){
+            return res.status(401).json ("Não encontrado");
+        }
+        const isPasswordValidate = await bcrypt.compare(password, isUserAuthenticated.password);
+        if(isPasswordValidate === false){
+            return res.status(401).json ("Senha não correspondida");
+        }
         const token = jwt.sign({
-            name:name,
             email: email
         },
-            secret.secret, {
+        process.env.SECRET,{
             expiresIn: 86400,
-        },
+        });
 
         res.cookie('token', token, {httpOnly: true}).json({
             name: isUserAuthenticated.name,
             email: isUserAuthenticated.email,
             token:token
-        })
-        
-        );
-        return res.json({
-            name: isUserAuthenticated.name,
-            email: isUserAuthenticated.email,
-            token: token
         });
+        
     } catch (error) {
         return res.json("Usuario não encontrado!");
     }
@@ -107,3 +109,5 @@ module.exports = { createUser, findUsers, deleteUser, updateUser, authenticatedU
 //npm i bcryptjs
 //npm init
 //npm start
+//npm i express-jwt
+//npm i cookie-parser
