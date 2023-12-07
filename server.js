@@ -24,7 +24,7 @@ app.use(
         algorithms: ["HS256"],
         getToken: req => req.cookies.token
     }).unless({
-        path: ["/user/authenticated"]
+        path: ["./user/authenticated", "/user"]
     })
 );
 const routes = require('./routers/routes');
