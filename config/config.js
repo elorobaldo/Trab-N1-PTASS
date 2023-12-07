@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
-  "development": {
+  development: {
     "username": process.env.DB_USER,
     "password": process.env.DB_PWD,
     "database": process.env.DB_NAME,
@@ -10,7 +10,7 @@ module.exports = {
     "dialect": process.env.DB_DIALECT,
     "logging": false
   },
-  "test": {
+  test: {
     "username": process.env.DB_NAME,
     "password": process.env.DB_PWD,
     "database": process.env.DATABASE,
@@ -19,7 +19,7 @@ module.exports = {
     "dialect": process.env.DB_DIALECT,
     "logging": true
   },
-  "production": {
+  production: {
     "username": process.env.DB_NAME,
     "password": process.env.DB_PWD,
     "database": process.env.DATABASE,
